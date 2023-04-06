@@ -1,34 +1,70 @@
 package server;
 
 import javafx.util.Pair;
+import server.models.Course;
+import server.models.RegistrationForm;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+/**
+ * Class qui s'occupe de s'inscrire au bon cours de la session
+ */
 public class Server {
 
+    /**
+     * Déclare la commande pour s'enregistré à un cours
+     */
     public final static String REGISTER_COMMAND = "INSCRIRE";
+    /**
+     * Déclare la commande pour charger un cours
+     */
     public final static String LOAD_COMMAND = "CHARGER";
+    /**
+     * Déclare la prise du server
+     */
     private final ServerSocket server;
+    /**
+     * Déclare la prise du client
+     */
     private Socket client;
+    /**
+     * Déclare l'entré d'information
+     */
     private ObjectInputStream objectInputStream;
+    /**
+     *Déclare la sortie d'information
+     */
     private ObjectOutputStream objectOutputStream;
+    /**
+     * Déclare le gestionnaire d'évenement
+     */
     private final ArrayList<EventHandler> handlers;
 
+    /**
+     * Construis le server selon le port d'entrée
+     * @param port port sur lequel le serveur est connecté
+     * @throws IOException si une erreur arrive a la creation du serveur
+     */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
         this.handlers = new ArrayList<EventHandler>();
         this.addEventHandler(this::handleEvents);
     }
 
+    /**
+     * Ajoute un gestionair d'évenement h.
+     * @param h le gestionair d'évenement que nous voulons rajouter.
+     *
+     */
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
     }
+
 
     private void alertHandlers(String cmd, String arg) {
         for (EventHandler h : this.handlers) {
@@ -36,6 +72,9 @@ public class Server {
         }
     }
 
+    /**
+     *
+     */
     public void run() {
         while (true) {
             try {
@@ -92,6 +131,25 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         // TODO: implémenter cette méthode
+        try {
+            FileReader course = new FileReader("./src/main/java/server/data/cours.txt");
+            BufferedReader reader = new BufferedReader(course);
+            ArrayList<Course> cours_session = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] session = line.split("\t");
+                if (session[2].equals(arg)) {
+                    cours_session.add(new Course(session[0], session[1], session[2]));
+                    System.out.println(cours_session);
+                }
+            }
+            reader.close();
+            objectOutputStream.writeObject(cours_session);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -101,6 +159,22 @@ public class Server {
      */
     public void handleRegistration() {
         // TODO: implémenter cette méthode
+        try {
+
+            RegistrationForm registrationForm = (RegistrationForm) objectInputStream.readObject();
+            FileWriter fileWriter = new FileWriter("inscription.txt");
+            fileWriter.write(registrationForm.getCourse().getSession()+"\t"+
+                    registrationForm.getCourse().getCode()+"\t"+registrationForm.getMatricule()+"\t"+
+                    registrationForm.getPrenom()+"\t"+registrationForm.getNom()+"\t"
+                    +registrationForm.getEmail()+"\n");
+            fileWriter.close();
+
+
+            objectOutputStream.writeObject("votre inscription a été enregistrée avec succès !");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
 
