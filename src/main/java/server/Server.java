@@ -170,7 +170,8 @@ public class Server {
             fileWriter.close();
 
 
-            objectOutputStream.writeObject("votre inscription a été enregistrée avec succès !");
+            objectOutputStream.writeObject("votre inscription au cours"+ registrationForm.getCourse().getName() +"été " +
+                    "enregistrée avec succès !");
         } catch (Exception e) {
             e.printStackTrace();
         }
