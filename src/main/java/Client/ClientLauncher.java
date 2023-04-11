@@ -1,7 +1,11 @@
 package Client;
 
 
+import server.models.Course;
+import server.models.RegistrationForm;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientLauncher {
@@ -41,11 +45,21 @@ public class ClientLauncher {
             }
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            demande(client);
         }
-        System.out.println("Les cours offerts pendant la session d'" + choixSession + " sont:");
-        client.demanderListeCours(choixSession);
+        ArrayList<Course> listeCours = client.demanderListeCours(choixSession);
+        if (listeCours.isEmpty()) {
+            System.out.println("Il n'y a aucun cours disponible pour la session " + choixSession);
+        } else {
+            System.out.println("Voici la liste des cours disponibles pour la session " + choixSession + " :");
+            int num = 1;
+            for (Course cours : listeCours) {
+                System.out.println(num + ". " + cours.getName() + "    " + cours.getCode());
+                num += 1;
+            }
+        }
         System.out.println(">Choix:");
-        System.out.println("1. Consulter les cour offerts pour une autre session\n2. Inscription a un cours");
+        System.out.println("1. Consulter les cours offerts pour une autre session\n2. Inscription a un cours");
 
         int choix = 0;
         while (choix != 1 && choix != 2) {
@@ -55,20 +69,59 @@ public class ClientLauncher {
                 System.out.println("Veuillez entrer un choix valide.");
             }
         }
-        try{
+        try {
             if (choix == 1) {
                 client = new Client(1337);
                 demande(client);
             }
 
-            if (choix ==2) {
+            if (choix == 2) {
                 client = new Client(1337);
-                client.demandeInscription(choixSession);
+                RegistrationForm form = inscription(choixSession, listeCours);
+                client.demandeInscription(form);
             }
         } catch (IOException e) {
-                System.out.println("Erreur lors de la récupération de connection au serveur: " + e.getMessage());
+            System.out.println("Erreur lors de la récupération de connection au serveur: " + e.getMessage());
+        }
+    }
+    public static RegistrationForm inscription(String choixSession, ArrayList<Course> listeCours){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Veuillez saisir votre prénom :");
+        String prenom = scanner.nextLine();
+        System.out.println("Veuillez saisir votre nom :");
+        String nom = scanner.nextLine();
+        System.out.println("Veuillez saisir votre email :");
+        String email = scanner.nextLine();
+        String matricule = "";
+        int i = 0;
+        while (i == 0) {
+            System.out.println("Veuillez saisir votre matricule :");
+            matricule = scanner.nextLine();
+            if (matricule.matches("[0-9]{6}")){
+                i = 1;
+            } else {
+                System.out.println("Matricule invalide!");
+            }
+        }
+        String codeCours = "";
+        i = 0;
+        while (i == 0) {
+            System.out.println("Veuillez saisir le code du cours :");
+            codeCours = scanner.nextLine();
+            for (Course cours : listeCours) {
+                if (codeCours.equals(cours.getName())) {
+                    i = 1;
+                }
+            }
+            if (i == 0) {
+                System.out.println("Le cours " + codeCours + " n'est pas disponible à la session d'" + choixSession);
             }
 
+        }
+
+        RegistrationForm form = new RegistrationForm(prenom, nom, email, matricule,
+                new Course(null, codeCours, choixSession));
+        return form;
     }
 }
 
