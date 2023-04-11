@@ -57,15 +57,20 @@ public class Server {
     }
 
     /**
-     * Ajoute un gestionair d'évenement h.
-     * @param h le gestionair d'évenement que nous voulons rajouter.
+     * Cette méthode ajoute un gestionnaire d'événements à la liste des gestionnaires d'événements.
+     * @param h le gestionaire d'évenement que nous voulons rajouter.
      *
      */
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
     }
 
-
+    /**
+     * La méthode parcourt la liste des gestionnaire d'évenement et
+     * appelle la méthode handle sur chaque gestionnaire en passant les arguments cmd et arg.
+     * @param cmd
+     * @param arg
+     */
     private void alertHandlers(String cmd, String arg) {
         for (EventHandler h : this.handlers) {
             h.handle(cmd, arg);
@@ -162,7 +167,7 @@ public class Server {
         try {
 
             RegistrationForm registrationForm = (RegistrationForm) objectInputStream.readObject();
-            FileWriter fileWriter = new FileWriter("inscription.txt");
+            FileWriter fileWriter = new FileWriter("src/main/java/server/data/inscription.txt", true);
             fileWriter.write(registrationForm.getCourse().getSession()+"\t"+
                     registrationForm.getCourse().getCode()+"\t"+registrationForm.getMatricule()+"\t"+
                     registrationForm.getPrenom()+"\t"+registrationForm.getNom()+"\t"
