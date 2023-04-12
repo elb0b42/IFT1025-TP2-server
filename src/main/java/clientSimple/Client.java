@@ -1,4 +1,4 @@
-package Client;
+package clientSimple;
 
 import server.models.Course;
 import server.models.RegistrationForm;
@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.io.IOException;
-import java.util.Scanner;
+
 
 public class Client {
     private Socket client;

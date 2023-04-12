@@ -1,4 +1,4 @@
-package Client;
+package clientSimple;
 
 
 import server.models.Course;
