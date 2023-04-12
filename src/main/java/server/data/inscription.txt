@@ -1,0 +1,3 @@
+Automne	IFT1015	123456	cha	ber	a
+Automne	IFT1015	987654	q	w	e
+Automne	IFT1015	123456	c	b	a
