@@ -1,4 +1,4 @@
-package clientFX;
+package Client.clientFX;
 
 public class Controler {
 }
