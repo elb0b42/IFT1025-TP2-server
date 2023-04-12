@@ -63,7 +63,7 @@ public class RegistrationForm implements Serializable {
 
     /**
      * setters qui permettent de modifier le Email
-     * @param email Email entrée par le client
+     * @param email Email entrée par le client.
      */
     public void setEmail(String email) {
         this.email = email;

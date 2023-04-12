@@ -41,7 +41,7 @@ public class Course implements Serializable {
 
     /**
      * fonction qui va chercher le code du cours.
-     * @return retourne le code du cours.
+     * @return retourne le code du cours
      */
     public String getCode() {
         return code;

@@ -137,7 +137,7 @@ public class Server {
     /**
      * gère les commande 'inscrire' et 'charger'.
      * @param cmd Commande qui sert a charger et s'inscrire à un cours.
-     * @param arg argument ou se trouve certaine information utile à l'inscription
+     * @param arg argument ou se trouve certaine information utile à l'inscription.
      */
     public void handleEvents(String cmd, String arg) {
         if (cmd.equals(REGISTER_COMMAND)) {
