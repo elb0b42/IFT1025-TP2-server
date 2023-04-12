@@ -24,7 +24,7 @@ public class Course implements Serializable {
     }
 
     /**
-     *
+     * Fonction qui va chercher le nom
      * @return retourne le nom du cours
      */
     public String getName() {
@@ -32,29 +32,49 @@ public class Course implements Serializable {
     }
 
     /**
-     *
-     * @param name
+     *Fonction qui set le nom.
+     * @param name nom du cours
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * fonction qui va chercher le code du cours.
+     * @return retourne le code du cours.
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Fonction qui set le code du cours.
+     * @param code  code du cours
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * Fonction qui la chercher la session approprié.
+     * @return retourne la session.
+     */
     public String getSession() {
         return session;
     }
 
+    /**
+     * Fonction qui set la bonne session.
+     * @param session session dans lequelle le cours se donne
+     */
     public void setSession(String session) {
         this.session = session;
     }
 
+    /**
+     * créer les information du cours.
+     * @return retourne les information du cours.
+     */
     @Override
     public String toString() {
         return "Course{" +

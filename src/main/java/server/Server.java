@@ -68,8 +68,8 @@ public class Server {
     /**
      * La méthode parcourt la liste des gestionnaire d'évenement et
      * appelle la méthode handle sur chaque gestionnaire en passant les arguments cmd et arg.
-     * @param cmd
-     * @param arg
+     * @param cmd commande demandé
+     * @param arg argument de la commande
      */
     private void alertHandlers(String cmd, String arg) {
         for (EventHandler h : this.handlers) {
@@ -78,7 +78,7 @@ public class Server {
     }
 
     /**
-     *
+     * Cette fonction démare le serveur.
      */
     public void run() {
         while (true) {
@@ -96,6 +96,11 @@ public class Server {
         }
     }
 
+    /**
+     * Cette fonction est une boucle qui traite la commande lorsqu'elle est envoyé
+     * @throws IOException si une erreure arrive lors de la commande du client
+     * @throws ClassNotFoundException lance une erreur si la class envoyé par le client est introuvable
+     */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
         if ((line = this.objectInputStream.readObject().toString()) != null) {
@@ -106,6 +111,12 @@ public class Server {
         }
     }
 
+    /**
+     *Cette fonction analyse la ligne de commande reçue et extrait la commande et les arguments correspondants
+     * pour ensuite les pairés
+     * @param line la ligne ou les commande et les argument doivent être pairés.
+     * @return retourne le pairage entre les commandes et les arguments.
+     */
     public Pair<String, String> processCommandLine(String line) {
         String[] parts = line.split(" ");
         String cmd = parts[0];
@@ -113,12 +124,21 @@ public class Server {
         return new Pair<>(cmd, args);
     }
 
+    /**
+     * Cette fonction déconect le client.
+     * @throws IOException si un problème est survenu lors de la décnnection.
+     */
     public void disconnect() throws IOException {
         objectOutputStream.close();
         objectInputStream.close();
         client.close();
     }
 
+    /**
+     * gère les commande 'inscrire' et 'charger'.
+     * @param cmd Commande qui sert a charger et s'inscrire à un cours.
+     * @param arg argument ou se trouve certaine information utile à l'inscription
+     */
     public void handleEvents(String cmd, String arg) {
         if (cmd.equals(REGISTER_COMMAND)) {
             handleRegistration();
