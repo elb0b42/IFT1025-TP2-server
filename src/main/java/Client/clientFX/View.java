@@ -136,7 +136,7 @@ public class View extends Application {
 
 
             // Créer un bouton avec un texte
-            Button bouton = new Button("envoyé");
+            Button bouton = new Button("envoyer");
             bouton.setAlignment(Pos.BOTTOM_CENTER);
             droit.getChildren().add(bouton);
 
