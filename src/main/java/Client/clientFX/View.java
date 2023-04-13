@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import server.models.Course;
 
+
 public class View extends Application {
     private final int hauteur = 500;
     private final int largeur = 600;
@@ -25,8 +26,19 @@ public class View extends Application {
     public void start(Stage stage) {
         try {
             HBox racine = new HBox();
+            VBox droit = new VBox();
+            racine.setBackground(new Background(
+                    new BackgroundFill(Color.rgb(245, 245, 220), CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+            Label message = new Label("Formulaire d'inscription");
+            racine.getChildren().addAll(message, droit);
             Scene scene = new Scene(racine, largeur, hauteur);
 
+
+            stage.setTitle("inscription UdeM");
+            stage.setScene(scene);
+            stage.show();
         }catch (Exception e){
             e.printStackTrace();
         }
