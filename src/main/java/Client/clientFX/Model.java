@@ -10,17 +10,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Model {
-    private ArrayList<Course> listeCours;
+    public ArrayList<Course> listeCours;
     public ArrayList<Course> demanderListeCours(String session) {
 
         try {
             Socket client = new Socket("127.0.0.1", 1337);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-            ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+            ObjectOutputStream objectOutputStream;
+            ObjectInputStream objectInputStream;
             objectOutputStream = new ObjectOutputStream(client.getOutputStream());
             objectInputStream = new ObjectInputStream(client.getInputStream());
             objectOutputStream.writeObject("CHARGER "+ session);
-            ArrayList<Course> listeCours = (ArrayList<Course>) objectInputStream.readObject();
+            listeCours = (ArrayList<Course>) objectInputStream.readObject();
 
             objectInputStream.close();
             objectInputStream.close();
@@ -29,23 +29,24 @@ public class Model {
         }
         return listeCours;
     }
-    public void demandeInscription(RegistrationForm form) {
+    public String demandeInscription(RegistrationForm form) {
 
+        String message = "";
         try {
             Socket client = new Socket("127.0.0.1", 1337);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-            ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+            ObjectOutputStream objectOutputStream;
+            ObjectInputStream objectInputStream;
             objectOutputStream = new ObjectOutputStream(client.getOutputStream());
             objectInputStream = new ObjectInputStream(client.getInputStream());
             objectOutputStream.writeObject("INSCRIRE");
             objectOutputStream.writeObject(form);
-            String message = (String) objectInputStream.readObject();
-            System.out.println(message);
+            message = (String) objectInputStream.readObject();
             objectInputStream.close();
             objectOutputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Erreur lors de l'inscription : " + e.getMessage());
         }
+    return message;
     }
 
 }

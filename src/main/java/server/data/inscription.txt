@@ -1,3 +1,6 @@
 Automne	IFT1015	123456	cha	ber	a
 Automne	IFT1015	987654	q	w	e
 Automne	IFT1015	123456	c	b	a
+Hiver	Algorithmique	123456	Charles	BErnard	abc
+Hiver	Algorithmique	846326	f	g	hjkl
+Hiver	Programmation2	1245	cvbn	qwe	qwerty

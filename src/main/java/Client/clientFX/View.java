@@ -16,12 +16,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import server.models.Course;
+import server.models.RegistrationForm;
 
 
 public class View extends Application {
     private final Controler controller = new Controler(new Model(), this);
     private final int hauteur = 500;
     private final int largeur = 600;
+    private TableView<Course> tableCours = new TableView<>();
     public static void run(String[] args) {
         View.launch(args);
     }
@@ -50,10 +52,13 @@ public class View extends Application {
 
 
             // TableView pour les cours
-            TableView<Course> tableCours = new TableView<>();
             TableColumn<Course, String> code = new TableColumn("Code");
             TableColumn<Course, String> cours = new TableColumn("Cours");
             cours.setPrefWidth(150);
+            code.setCellValueFactory(cellData ->
+                    new ReadOnlyStringWrapper(cellData.getValue().getName()));
+            cours.setCellValueFactory(cellData ->
+                    new ReadOnlyStringWrapper(cellData.getValue().getCode()));
             tableCours.getColumns().addAll(code,cours);
             tableCours.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             gauche.getChildren().add(tableCours);
@@ -68,7 +73,7 @@ public class View extends Application {
             VBox menu = new VBox();
             petiteBoite.getChildren().add(menu);
             ComboBox<String> saisonComboBox = new ComboBox<>();
-            saisonComboBox.getItems().addAll("Hiver", "Été", "Automne");
+            saisonComboBox.getItems().addAll("Hiver", "Ete", "Automne");
             saisonComboBox.setValue("Hiver");
             saisonComboBox.setPrefWidth(100);
             menu.setAlignment(Pos.CENTER);
@@ -86,12 +91,10 @@ public class View extends Application {
 
             charger.setOnAction( e-> {
                tableCours.getItems().clear();
-
-
-
-
             });
-
+            charger.setOnAction( (action) -> {
+                        controller.chargerListeCours(saisonComboBox.getValue());
+            });
 
 
             // Separateur
@@ -139,6 +142,10 @@ public class View extends Application {
             Button bouton = new Button("envoyer");
             bouton.setAlignment(Pos.BOTTOM_CENTER);
             droit.getChildren().add(bouton);
+            bouton.setOnAction( (action) -> {
+               controller.inscription(new RegistrationForm(prenom.getText(), nom.getText(), email.getText(),
+                       matricule.getText(),tableCours.getSelectionModel().getSelectedItem()));
+            });
 
 
 
@@ -155,6 +162,16 @@ public class View extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+    public TableView getTableCours(){
+        return tableCours;
+    }
+    public void popUpReussi(String message){
+        Stage popUp = new Stage();
+        VBox racine = new VBox();
+        popUp.setTitle(message);
+        popUp.show();
 
     }
 }
