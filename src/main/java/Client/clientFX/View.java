@@ -24,9 +24,11 @@ public class View extends Application {
     private final int hauteur = 500;
     private final int largeur = 600;
     private TableView<Course> tableCours = new TableView<>();
+
     public static void run(String[] args) {
         View.launch(args);
     }
+
     public void start(Stage stage) {
         try {
             HBox racine = new HBox();
@@ -37,7 +39,7 @@ public class View extends Application {
             HBox petiteBoite = new HBox();
 
 
-    // Boite de Gauche
+            // Boite de Gauche
             racine.getChildren().add(gauche);
             gauche.setPrefWidth(300);
             droit.setAlignment(Pos.TOP_CENTER);
@@ -47,8 +49,7 @@ public class View extends Application {
             Label listeDesCours = new Label("Liste des cours");
             gauche.getChildren().add(listeDesCours);
             listeDesCours.setFont(new Font("Arial", 16));
-            listeDesCours.setPadding(new Insets(7,7,20,7));
-
+            listeDesCours.setPadding(new Insets(7, 7, 20, 7));
 
 
             // TableView pour les cours
@@ -59,7 +60,7 @@ public class View extends Application {
                     new ReadOnlyStringWrapper(cellData.getValue().getName()));
             cours.setCellValueFactory(cellData ->
                     new ReadOnlyStringWrapper(cellData.getValue().getCode()));
-            tableCours.getColumns().addAll(code,cours);
+            tableCours.getColumns().addAll(code, cours);
             tableCours.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             gauche.getChildren().add(tableCours);
 
@@ -80,7 +81,6 @@ public class View extends Application {
             menu.getChildren().add(saisonComboBox);
 
 
-
             // Bouton charger
             VBox boutonCharger = new VBox();
             Button charger = new Button("charger");
@@ -89,11 +89,11 @@ public class View extends Application {
             boutonCharger.getChildren().add(charger);
             petiteBoite.getChildren().add(boutonCharger);
 
-            charger.setOnAction( e-> {
-               tableCours.getItems().clear();
+            charger.setOnAction(e -> {
+                tableCours.getItems().clear();
             });
-            charger.setOnAction( (action) -> {
-                        controller.chargerListeCours(saisonComboBox.getValue());
+            charger.setOnAction((action) -> {
+                controller.chargerListeCours(saisonComboBox.getValue());
             });
 
 
@@ -113,65 +113,115 @@ public class View extends Application {
             Label FormulaireInscription = new Label("Formulaire d'inscription");
             droit.getChildren().add(FormulaireInscription);
             FormulaireInscription.setFont(new Font("Arial", 16));
-            FormulaireInscription.setPadding(new Insets(7,7,20,7));
+            FormulaireInscription.setPadding(new Insets(7, 7, 20, 7));
 
             // Prénom
             TextField prenom = new TextField();
             prenom.setPromptText("Prénom");
-            prenom.setPadding(new Insets(5,5,20,5));
+            prenom.setPadding(new Insets(5, 5, 20, 5));
             droit.getChildren().add(prenom);
             // nom
             TextField nom = new TextField();
             nom.setPromptText("Nom");
-            nom.setPadding(new Insets(5,5,20,5));
+            nom.setPadding(new Insets(5, 5, 20, 5));
             droit.getChildren().add(nom);
             //email
             TextField email = new TextField();
             email.setPromptText("Courriel");
-            email.setPadding(new Insets(5,5,20,5));
+            email.setPadding(new Insets(5, 5, 20, 5));
             droit.getChildren().add(email);
             //matricule
             TextField matricule = new TextField();
             matricule.setPromptText("Matricule");
-            matricule.setPadding(new Insets(5,5,20,5));
+            matricule.setPadding(new Insets(5, 5, 20, 5));
             droit.getChildren().add(matricule);
-
 
 
             // Créer un bouton avec un texte
             Button bouton = new Button("envoyer");
             bouton.setAlignment(Pos.BOTTOM_CENTER);
             droit.getChildren().add(bouton);
-            bouton.setOnAction( (action) -> {
-               controller.inscription(new RegistrationForm(prenom.getText(), nom.getText(), email.getText(),
-                       matricule.getText(),tableCours.getSelectionModel().getSelectedItem()));
+            bouton.setOnAction((action) -> {
+                controller.inscription(new RegistrationForm(prenom.getText(), nom.getText(), email.getText(),
+                        matricule.getText(), tableCours.getSelectionModel().getSelectedItem()));
             });
-
-
-
-
-
-
-
 
 
             Scene scene = new Scene(racine, largeur, hauteur);
             stage.setTitle("inscription UdeM");
             stage.setScene(scene);
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public TableView getTableCours(){
+
+    public TableView getTableCours() {
         return tableCours;
     }
-    public void popUpReussi(String message){
+
+    public void popUpReussi(String message) {
+
         Stage popUp = new Stage();
         VBox racine = new VBox();
-        popUp.setTitle(message);
+        popUp.setResizable(false);
+
+        Label reussi = new Label(message);
+        reussi.setFont(new Font("Arial", 13));
+        reussi.setAlignment(Pos.CENTER);
+        reussi.setPadding(new Insets(10, 10, 10, 10));
+
+        HBox hBox = new HBox();
+        Button bouton = new Button("OK");
+        bouton.setAlignment(Pos.BASELINE_RIGHT);
+        bouton.setOnAction((action) -> {
+            popUp.close();
+        });
+        hBox.getChildren().add(bouton);
+        hBox.setPadding(new Insets(30, 10, 10, 350));
+
+        racine.getChildren().addAll(reussi, hBox);
+
+
+        Scene scene = new Scene(racine, 400, 100);
+        popUp.setScene(scene);
+        popUp.setTitle("Inscription réussi!");
         popUp.show();
 
+    }
+
+
+    public void popUpErreur(String message) {
+
+        Stage popUp = new Stage();
+        popUp.setResizable(false);
+
+        Label reussi = new Label(message);
+        reussi.setFont(new Font("Arial", 13));
+        reussi.setPadding(new Insets(10, 10, 10, 10));
+
+        Button bouton = new Button("OK");
+        bouton.setAlignment(Pos.BASELINE_RIGHT);
+        bouton.setOnAction((action) -> {
+            popUp.close();
+        });
+
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().addAll(reussi, bouton);
+
+        AnchorPane.setTopAnchor(reussi, 10.0);
+        AnchorPane.setLeftAnchor(reussi, 10.0);
+        AnchorPane.setRightAnchor(reussi, 10.0);
+
+        anchorPane.setRightAnchor(bouton, 10.0);
+        anchorPane.setBottomAnchor(bouton, 5.0);
+
+
+
+        Scene scene = new Scene(anchorPane, 400, 130);
+        popUp.setScene(scene);
+        popUp.setTitle("Erreur");
+        popUp.show();
     }
 }

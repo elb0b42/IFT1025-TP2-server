@@ -195,7 +195,7 @@ public class Server {
             fileWriter.close();
 
 
-            objectOutputStream.writeObject("votre inscription au cours "+ registrationForm.getCourse().getName() +" été " +
+            objectOutputStream.writeObject("Votre inscription au cours "+ registrationForm.getCourse().getName() +" a été " +
                     "enregistrée avec succès !");
         } catch (Exception e) {
             e.printStackTrace();

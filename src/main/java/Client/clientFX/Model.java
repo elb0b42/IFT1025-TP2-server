@@ -32,6 +32,27 @@ public class Model {
     public String demandeInscription(RegistrationForm form) {
 
         String message = "";
+        String prenom = "";
+        String nom = "";
+        String email = "";
+        String matricule = "";
+
+        if (form.getPrenom().isEmpty()) {
+            prenom = "Veuiller entrer votre prénom\n";
+        }
+        if (form.getNom().isEmpty()){
+            nom = "Veuiller entrer votre nom\n";
+        }
+        if (!form.getEmail().matches("[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?")) {
+            email = "Veuiller entrer un email valide\n";
+        }
+        if (!form.getMatricule().matches(("^[0-9]{6}$") )) {
+            matricule = "Veullier entrer un matricule de 6 chiffre\n";
+        }
+        message = prenom + nom  + email + matricule;
+        if (!message.isEmpty()) {
+            return message.trim();
+        }
         try {
             Socket client = new Socket("127.0.0.1", 1337);
             ObjectOutputStream objectOutputStream;
@@ -45,8 +66,9 @@ public class Model {
             objectOutputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Erreur lors de l'inscription : " + e.getMessage());
+            return "Erreur lors de l'inscription : " + e.getMessage();
         }
-    return message;
+    return null;
     }
 
 }

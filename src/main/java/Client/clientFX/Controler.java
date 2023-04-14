@@ -25,9 +25,10 @@ public class Controler {
     }
     public void inscription(RegistrationForm form){
         String resultat = model.demandeInscription(form);
-        popUp(resultat);
-    }
-    public void popUp(String message) {
-        view.popUpReussi(message);
+        if (resultat == null) {
+            view.popUpReussi("Votre inscription au cours " + form.getCourse().getName() + " a été enregistré avec succès!" );
+        } else {
+            view.popUpErreur(resultat);
+        }
     }
 }
