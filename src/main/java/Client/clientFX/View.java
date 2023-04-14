@@ -219,7 +219,7 @@ public class View extends Application {
 
 
 
-        Scene scene = new Scene(anchorPane, 400, 130);
+        Scene scene = new Scene(anchorPane, 400, 140);
         popUp.setScene(scene);
         popUp.setTitle("Erreur");
         popUp.show();

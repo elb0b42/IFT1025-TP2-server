@@ -36,6 +36,12 @@ public class Model {
         String nom = "";
         String email = "";
         String matricule = "";
+        Course cours = form.getCourse();
+        String erreurCours = "";
+
+        if (cours == null) {
+            erreurCours = "Veuillez choisir un cours\n";
+        }
 
         if (form.getPrenom().isEmpty()) {
             prenom = "Veuiller entrer votre prénom\n";
@@ -49,7 +55,7 @@ public class Model {
         if (!form.getMatricule().matches(("^[0-9]{6}$") )) {
             matricule = "Veullier entrer un matricule de 6 chiffre\n";
         }
-        message = prenom + nom  + email + matricule;
+        message = erreurCours + prenom + nom  + email + matricule;
         if (!message.isEmpty()) {
             return message.trim();
         }
