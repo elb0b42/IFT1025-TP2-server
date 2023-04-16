@@ -9,8 +9,20 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * gère les opérations à faire sur l'interface.
+ */
 public class Model {
+    /**
+     *Crée un nouvelle liste de cours.
+     */
     public ArrayList<Course> listeCours;
+
+    /**
+     * fonction qui va chercher la liste des cours.
+     * @param session session dans la quelle les cours doivent être donné.
+     * @return une liste de tout les cours donner dans la session demandé
+     */
     public ArrayList<Course> demanderListeCours(String session) {
 
         try {
@@ -29,6 +41,12 @@ public class Model {
         }
         return listeCours;
     }
+
+    /**
+     * Fonction qui prend tout les information du client pour l'inscription.
+     * @param form Formulaire qui contient les information du client.
+     * @return retourne l'inscription du client.
+     */
     public String demandeInscription(RegistrationForm form) {
 
         String message = "";

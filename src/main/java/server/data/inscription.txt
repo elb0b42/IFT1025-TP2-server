@@ -14,3 +14,4 @@ Automne	Genie_Logiciel	123456	charle	charle	charle@umontreal.ca
 Automne	Architecture_des_ordinateurs	123456	charle	charle	charle@umontreal.ca
 Automne	Architecture_des_ordinateurs	123456	charle	charles	charle@umontreal.ca
 Ete	Base_de_donnees	123456	c	c	c@c.c
+Hiver	Programmation2	123456	b	b	b@b.B
