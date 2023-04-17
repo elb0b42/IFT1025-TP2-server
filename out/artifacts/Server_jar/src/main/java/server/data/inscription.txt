@@ -1,0 +1,21 @@
+Hiver	Algorithmique	123456	c	q	c@b.c
+Hiver	Algorithmique	123456	q	w	c@r.c
+Hiver	Algorithmique	123456	q	q	c@h.c
+Hiver	Algorithmique	123456	c	c	c@u.c
+Hiver	Algorithmique	123456	c	d	c@u.c
+Hiver	Algorithmique	123456	c	v	c@b.c
+Automne	Programmation1	194832	Charles	B	charles.b@gmail.com
+Ete	IFT2256	123456	Charles		c
+Ete	Base_de_donnees	123456	charle	charle	charle@umontreal.ca
+Hiver	Algorithmique	123456	charle	charle	charle@umontreal.ca
+Hiver	Programmation2	123456	charle	charle	charle@umontreal.ca
+Automne	Programmation1	123456	charle	charle	charle@umontreal.ca
+Automne	Genie_Logiciel	123456	charle	charle	charle@umontreal.ca
+Automne	Architecture_des_ordinateurs	123456	charle	charle	charle@umontreal.ca
+Automne	Architecture_des_ordinateurs	123456	charle	charles	charle@umontreal.ca
+Ete	Base_de_donnees	123456	c	c	c@c.c
+Hiver	Programmation2	123456	b	b	b@b.B
+Ete	Base_de_donnees	123456	timothe	payette	timothe.payette@Umontreal.ca
+Hiver	Algorithmique	123456	timothe	payette	timothe.payette@Umontreal.ca
+Ete	Base_de_donnees	123456	timothe	payette	timothe.payette@outlook.com
+Hiver	Programmation2	123456	Timothe	payette	timothe.payette@outlook.com
