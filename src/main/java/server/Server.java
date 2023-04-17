@@ -173,6 +173,7 @@ public class Server {
 
         }catch (IOException e){
             e.printStackTrace();
+            System.out.println("Le fichier cours na pas pu être ouvert");
         }
 
     }
@@ -199,8 +200,10 @@ public class Server {
                     "enregistrée avec succès !");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Il y a une erreur dans votre registration form");
         }
 
     }
 }
+
 

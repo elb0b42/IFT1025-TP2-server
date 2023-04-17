@@ -18,17 +18,27 @@ import javafx.stage.Stage;
 import server.models.Course;
 import server.models.RegistrationForm;
 
-
+/**
+ * class qui crée l'interface avec la quelle le client va s'inscrire.
+ */
 public class View extends Application {
     private final Controler controller = new Controler(new Model(), this);
     private final int hauteur = 500;
     private final int largeur = 600;
     private TableView<Course> tableCours = new TableView<>();
 
+    /**
+     *Fonction qui permet de partir le programme
+     * @param args argument du serveur.
+     */
     public static void run(String[] args) {
         View.launch(args);
     }
 
+    /**
+     * Fonction qui va placé tout les élement visuelle de l'interface.
+     * @param stage fenêtre dans la quelle tout les information vont se trouvé.
+     */
     public void start(Stage stage) {
         try {
             HBox racine = new HBox();
@@ -157,10 +167,18 @@ public class View extends Application {
 
     }
 
+    /**
+     * Fonction qui va chercher les cours valide.
+     * @return retourne les cours valide.
+     */
     public TableView getTableCours() {
         return tableCours;
     }
 
+    /**
+     * Fonction qui envoie un message si toute s'est bien passé dans l'inscription.
+     * @param message message envoyé.
+     */
     public void popUpReussi(String message) {
 
         Stage popUp = new Stage();
@@ -191,7 +209,10 @@ public class View extends Application {
 
     }
 
-
+    /**
+     * Fonction qui envoie un message si il y a eu un erreur dans l'inscription.
+     * @param message message d'erreur à envoyé.
+     */
     public void popUpErreur(String message) {
 
         Stage popUp = new Stage();
