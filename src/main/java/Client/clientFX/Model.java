@@ -62,16 +62,16 @@ public class Model {
         }
 
         if (form.getPrenom().isEmpty()) {
-            prenom = "Veuiller entrer votre prénom\n";
+            prenom = "Veuillez entrer votre prénom\n";
         }
         if (form.getNom().isEmpty()){
-            nom = "Veuiller entrer votre nom\n";
+            nom = "Veuillez entrer votre nom\n";
         }
         if (!form.getEmail().matches("[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?")) {
-            email = "Veuiller entrer un email valide\n";
+            email = "Veuillez entrer un email valide\n";
         }
         if (!form.getMatricule().matches(("^[0-9]{6}$") )) {
-            matricule = "Veullier entrer un matricule de 6 chiffre\n";
+            matricule = "Veulliez entrer un matricule de 6 chiffres\n";
         }
         message = erreurCours + prenom + nom  + email + matricule;
         if (!message.isEmpty()) {
